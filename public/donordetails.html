@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Donor Data</h1>
+    <table id="donorTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Blood Type</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Medical History</th>
+                <th>Consent</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be populated dynamically using JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch data from the backend and populate the table
+        async function fetchData() {
+            try {
+                const response = await fetch('http://localhost:4000/getDonors');
+                const donors = await response.json();
+
+                const tableBody = document.querySelector('#donorTable tbody');
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                donors.forEach(donor => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${donor.name}</td>
+                        <td>${donor.age}</td>
+                        <td>${donor.gender}</td>
+                        <td>${donor.bloodType}</td>
+                        <td>${donor.phone}</td>
+                        <td>${donor.email}</td>
+                        <td>${donor.address}</td>
+                        <td>${donor.medicalHistory}</td>
+                        <td>${donor.consent ? 'Yes' : 'No'}</td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Call the fetchData function when the page loads
+        window.onload = fetchData;
+    </script>
+</body>
+</html>

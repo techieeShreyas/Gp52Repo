@@ -1,33 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blockchain Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Transplant Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .button:hover {
+            background: #218838;
+        }
+    </style>
 </head>
 <body>
-  <h1>Blockchain Data Form</h1>
-  <form id="dataForm">
-    <label for="data">Enter Data:</label>
-    <input type="text" id="data" name="data" required>
-    <button type="submit">Submit</button>
-  </form>
-
-  <script>
-    document.getElementById('dataForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = document.getElementById('data').value;
-
-      // Send data to the server
-      const response = await fetch('/addData', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data })
-      });
-
-      const result = await response.json();
-      alert(result.message);
-    });
-  </script>
+    <div class="container">
+        <h1>Heart Transplant Portal</h1>
+        <p>Select your role to proceed:</p>
+        <div class="button-container">
+            <a href="donor.html" class="button">Register as Donor</a>
+            <a href="receiver.html" class="button">Register as Receiver</a>
+            <a href="donordetails.html" class="button">Donor details</a>
+        </div>
+    </div>
 </body>
 </html>
