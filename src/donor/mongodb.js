@@ -12,7 +12,7 @@ var receivercollectionName = 'Receiver';
 async function connectToMongoDB() {
   try {
     await client.connect();
-    console.log('Connected to MongoDB');
+    // console.log('Connected to MongoDB');
     const db = client.db(dbName);
     return db.collection(donorcollectionName);
     // if(name == donor){

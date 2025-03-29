@@ -53,14 +53,25 @@
         async function fetchData() {
             try {
                 const response = await fetch('http://localhost:4000/getDonors');
+                console.log(response);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const donors = await response.json();
-
+    
+                console.log(donors); // Log the data to the console for debugging
+    
                 const tableBody = document.querySelector('#donorTable tbody');
                 tableBody.innerHTML = ''; // Clear existing rows
-
+    
+                if (donors.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="9">No data found</td></tr>';
+                    return;
+                }
+    
                 donors.forEach(donor => {
                     const row = document.createElement('tr');
-
+    
                     row.innerHTML = `
                         <td>${donor.name}</td>
                         <td>${donor.age}</td>
@@ -72,14 +83,16 @@
                         <td>${donor.medicalHistory}</td>
                         <td>${donor.consent ? 'Yes' : 'No'}</td>
                     `;
-
+    
                     tableBody.appendChild(row);
                 });
             } catch (error) {
                 console.error('Error fetching data:', error);
+                const tableBody = document.querySelector('#donorTable tbody');
+                tableBody.innerHTML = '<tr><td colspan="9">Error loading data. Please try again.</td></tr>';
             }
         }
-
+    
         // Call the fetchData function when the page loads
         window.onload = fetchData;
     </script>
